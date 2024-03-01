@@ -16,7 +16,11 @@ def getCurrentWeather():
     request_url = f"https://api.openweathermap.org/data/2.5/weather?units=metric&appid={os.getenv('API_KEY')}&q={city}"
 
     watherData = requests.get(request_url).json()
-    # pprint(watherData)
+
+    if not watherData["cod"] == 200:
+        print("city not found")
+        return
+
     print(
         f"\nCurrent weather for {watherData['name']}: the temp is {watherData['main']['temp']}"
     )
